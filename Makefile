@@ -68,92 +68,92 @@ LDFLAGS =
 LIBS =
 
 # Make a folder for object files, if it does not exist yet
-OBJDIR = build
-$(shell mkdir -p $(OBJDIR))
+BUILDIR = build
+$(shell mkdir -p $(BUILDIR))
 
-OBJ_COMM = $(OBJDIR)/codec.o $(OBJDIR)/mq.o $(OBJDIR)/sha3.o $(OBJDIR)/sysrng.o $(OBJDIR)/util.o
-OBJ_KGEN = $(OBJDIR)/kgen.o $(OBJDIR)/kgen_fxp.o $(OBJDIR)/kgen_gauss.o $(OBJDIR)/kgen_mp31.o $(OBJDIR)/kgen_ntru.o $(OBJDIR)/kgen_poly.o $(OBJDIR)/kgen_zint31.o
-OBJ_SIGN = $(OBJDIR)/sign.o $(OBJDIR)/sign_core.o $(OBJDIR)/sign_fpoly.o $(OBJDIR)/sign_fpr.o $(OBJDIR)/sign_sampler.o
-OBJ_VRFY = $(OBJDIR)/vrfy.o
+OBJ_COMM = $(BUILDIR)/codec.o $(BUILDIR)/mq.o $(BUILDIR)/sha3.o $(BUILDIR)/sysrng.o $(BUILDIR)/util.o
+OBJ_KGEN = $(BUILDIR)/kgen.o $(BUILDIR)/kgen_fxp.o $(BUILDIR)/kgen_gauss.o $(BUILDIR)/kgen_mp31.o $(BUILDIR)/kgen_ntru.o $(BUILDIR)/kgen_poly.o $(BUILDIR)/kgen_zint31.o
+OBJ_SIGN = $(BUILDIR)/sign.o $(BUILDIR)/sign_core.o $(BUILDIR)/sign_fpoly.o $(BUILDIR)/sign_fpr.o $(BUILDIR)/sign_sampler.o
+OBJ_VRFY = $(BUILDIR)/vrfy.o
 OBJ = $(OBJ_COMM) $(OBJ_KGEN) $(OBJ_SIGN) $(OBJ_VRFY)
-TESTOBJ = $(OBJDIR)/test_fndsa.o $(OBJDIR)/test_sampler.o $(OBJDIR)/test_sign.o
-SPEEDOBJ = $(OBJDIR)/speed_fndsa.o
+TESTOBJ = $(BUILDIR)/test_fndsa.o $(BUILDIR)/test_sampler.o $(BUILDIR)/test_sign.o
+SPEEDOBJ = $(BUILDIR)/speed_fndsa.o
 
 all: test_fndsa speed_fndsa
 
 clean:
-	-rm -f $(OBJ) $(TESTOBJ) $(SPEEDOBJ) test_fndsa speed_fndsa
+	-rm -f $(OBJ) $(TESTOBJ) $(SPEEDOBJ) $(BUILDIR)/test_fndsa $(BUILDIR)/speed_fndsa
 
 test_fndsa: $(OBJ) $(TESTOBJ)
-	$(LD) $(LDFLAGS) -o test_fndsa $(OBJ) $(TESTOBJ) $(LIBS)
+	$(LD) $(LDFLAGS) -o $(BUILDIR)/test_fndsa $(OBJ) $(TESTOBJ) $(LIBS)
 
 speed_fndsa: $(OBJ) $(SPEEDOBJ)
-	$(LD) $(LDFLAGS) -o speed_fndsa $(OBJ) $(SPEEDOBJ) $(LIBS)
+	$(LD) $(LDFLAGS) -o $(BUILDIR)/speed_fndsa $(OBJ) $(SPEEDOBJ) $(LIBS)
 
 # -----------------------------------------------------------------------
 
-$(OBJDIR)/codec.o: codec.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/codec.o codec.c
+$(BUILDIR)/codec.o: codec.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/codec.o codec.c
 
-$(OBJDIR)/mq.o: mq.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/mq.o mq.c
+$(BUILDIR)/mq.o: mq.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/mq.o mq.c
 
-$(OBJDIR)/sha3.o: sha3.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sha3.o sha3.c
+$(BUILDIR)/sha3.o: sha3.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sha3.o sha3.c
 
-$(OBJDIR)/sysrng.o: sysrng.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sysrng.o sysrng.c
+$(BUILDIR)/sysrng.o: sysrng.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sysrng.o sysrng.c
 
-$(OBJDIR)/util.o: util.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/util.o util.c
+$(BUILDIR)/util.o: util.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/util.o util.c
 
-$(OBJDIR)/kgen.o: kgen.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen.o kgen.c
+$(BUILDIR)/kgen.o: kgen.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen.o kgen.c
 
-$(OBJDIR)/kgen_fxp.o: kgen_fxp.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_fxp.o kgen_fxp.c
+$(BUILDIR)/kgen_fxp.o: kgen_fxp.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_fxp.o kgen_fxp.c
 
-$(OBJDIR)/kgen_gauss.o: kgen_gauss.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_gauss.o kgen_gauss.c
+$(BUILDIR)/kgen_gauss.o: kgen_gauss.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_gauss.o kgen_gauss.c
 
-$(OBJDIR)/kgen_mp31.o: kgen_mp31.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_mp31.o kgen_mp31.c
+$(BUILDIR)/kgen_mp31.o: kgen_mp31.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_mp31.o kgen_mp31.c
 
-$(OBJDIR)/kgen_ntru.o: kgen_ntru.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_ntru.o kgen_ntru.c
+$(BUILDIR)/kgen_ntru.o: kgen_ntru.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_ntru.o kgen_ntru.c
 
-$(OBJDIR)/kgen_poly.o: kgen_poly.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_poly.o kgen_poly.c
+$(BUILDIR)/kgen_poly.o: kgen_poly.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_poly.o kgen_poly.c
 
-$(OBJDIR)/kgen_zint31.o: kgen_zint31.c fndsa.h kgen_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/kgen_zint31.o kgen_zint31.c
+$(BUILDIR)/kgen_zint31.o: kgen_zint31.c fndsa.h kgen_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/kgen_zint31.o kgen_zint31.c
 
-$(OBJDIR)/sign.o: sign.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sign.o sign.c
+$(BUILDIR)/sign.o: sign.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sign.o sign.c
 
-$(OBJDIR)/sign_core.o: sign_core.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sign_core.o sign_core.c
+$(BUILDIR)/sign_core.o: sign_core.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sign_core.o sign_core.c
 
-$(OBJDIR)/sign_fpoly.o: sign_fpoly.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sign_fpoly.o sign_fpoly.c
+$(BUILDIR)/sign_fpoly.o: sign_fpoly.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sign_fpoly.o sign_fpoly.c
 
-$(OBJDIR)/sign_fpr.o: sign_fpr.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sign_fpr.o sign_fpr.c
+$(BUILDIR)/sign_fpr.o: sign_fpr.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sign_fpr.o sign_fpr.c
 
-$(OBJDIR)/sign_sampler.o: sign_sampler.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/sign_sampler.o sign_sampler.c
+$(BUILDIR)/sign_sampler.o: sign_sampler.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/sign_sampler.o sign_sampler.c
 
-$(OBJDIR)/vrfy.o: vrfy.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/vrfy.o vrfy.c
+$(BUILDIR)/vrfy.o: vrfy.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/vrfy.o vrfy.c
 
-$(OBJDIR)/test_fndsa.o: test_fndsa.c fndsa.h inner.h kgen_inner.h sign_inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/test_fndsa.o test_fndsa.c
+$(BUILDIR)/test_fndsa.o: test_fndsa.c fndsa.h inner.h kgen_inner.h sign_inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/test_fndsa.o test_fndsa.c
 
-$(OBJDIR)/test_sampler.o: test_sampler.c sign_sampler.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/test_sampler.o test_sampler.c
+$(BUILDIR)/test_sampler.o: test_sampler.c sign_sampler.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/test_sampler.o test_sampler.c
 
-$(OBJDIR)/test_sign.o: test_sign.c sign_sampler.c sign_core.c fndsa.h sign_inner.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/test_sign.o test_sign.c
+$(BUILDIR)/test_sign.o: test_sign.c sign_sampler.c sign_core.c fndsa.h sign_inner.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/test_sign.o test_sign.c
 
-$(OBJDIR)/speed_fndsa.o: speed_fndsa.c fndsa.h inner.h
-	$(CC) $(CFLAGS) -c -o $(OBJDIR)/speed_fndsa.o speed_fndsa.c
+$(BUILDIR)/speed_fndsa.o: speed_fndsa.c fndsa.h inner.h
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/speed_fndsa.o speed_fndsa.c
